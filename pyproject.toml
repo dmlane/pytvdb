@@ -1,0 +1,77 @@
+[tool.poetry]
+name = "pytvdb"
+version = "2023.1.1000"		# Published version is managed BY bumper
+description = "My Tvdb interface classes"
+authors = ["Dave Lane <cheery.koala5370@fastmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/dmlane/pytvdb"
+include = [
+   { path = 'LICENSE', format = 'sdist' },
+   { path = 'README.md', format = 'sdist' },
+   { path = 'docs', format = 'sdist' },
+   { path = 'tests', format = 'sdist' },
+]
+packages = [
+   { include = "pytvdb", from = "src" },
+]
+[tool.poetry.scripts]
+# Section managed with vi
+tvdb_refresh_cache = "pytvdb.my_tvdb:refresh_cache"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4"
+tvdb-v4-official = "^1.1.0"
+pycommon = {path = "/Users/dave/dev/pycommon", develop = true}
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+myst-parser = ">=0.16"
+sphinx = ">=4.0"
+sphinx-autobuild = ">=2021.0"
+sphinx-rtd-theme = ">=1.0"
+
+[tool.poetry.group.dev.dependencies]
+black = ">=23.3.0"
+bumpver = ">=2022.1120"
+isort = ">=5.12.0"
+pylint = ">=2.17.2"
+pytest = ">=7.3.1"
+pytest-resource-path = ">=1.3.0"
+
+[[tool.poetry.source]]
+name = "repositories.fury"
+url = "https://pypi.fury.io/dave-lane/"
+default = false
+secondary = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.bumpver]
+current_version = "2023.1.1000"
+version_pattern = "YYYY.MM.BUILD"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"',
+]
+
+[tool.black]
+line_length = 100
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.pytest.ini_options]
+pythonpath = "src/pytvdb"
