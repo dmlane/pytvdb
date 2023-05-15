@@ -4,9 +4,11 @@ My Tvdb interface classes
 
 Setup:
 Create a file in your user settings folder aand subdirectory dmlane
-``[tvdb]
+```
+[tvdb]
 api_key='Your API key'
-api_pin='Your API pin' ``
+api_pin='Your API pin' 
+```
 
 Usage:
 - Setup favourites on TVDB
