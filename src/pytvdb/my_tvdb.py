@@ -188,3 +188,9 @@ class MyTVDB:
                     )
 
         return results
+
+
+def refresh_cache():
+    """Refresh cache"""
+    handler = MyTVDB()
+    handler.refresh_cache()
