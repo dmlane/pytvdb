@@ -74,6 +74,31 @@ class MyTVDB:
         favourites = self._fetch_favourites()
         self._fetch_all_data(favourites)
 
+    def get_tvdb_data(self, slug: str):
+        """Get TVDB data from cache"""
+        if slug in self.data:
+            return self.data[slug]
+
+        return None
+
+    def print_slugs(self, cache_file=None):
+        """Print slugs"""
+        if cache_file is not None:
+            self.cache_file = cache_file
+        self._load_cache()
+        print("Listing series and files from cache")
+        print("===================================\n")
+        maxwidth = 0
+        for slug, _ in self.data.items():
+            if len(slug) > maxwidth:
+                maxwidth = len(slug)
+
+        for slug, result in sorted(self.data.items()):
+            if isinstance(result, Series):
+                print(f"{slug:>{maxwidth}}: Series: {result.name}")
+            else:
+                print(f"{slug:>{maxwidth}}:  Movie: {result.name}")
+
     def _connect(self):
         """Connect to TVDB API"""
 
@@ -82,7 +107,7 @@ class MyTVDB:
         except Exception as inst:  # pylint: disable=broad-except
             raise MyException("Could not connect to TVDB") from inst
 
-    def load_cache(self, cache_file=None):
+    def _load_cache(self, cache_file=None):
         """Load favourites from cache"""
         if cache_file is not None:
             self.cache_file = cache_file
@@ -147,32 +172,14 @@ class MyTVDB:
             tvdb_id=tvdb_id,
             name=translations["name"],
             image_url=data["image"],
-            episodes=self.fetch_episodes(tvdb_id),
+            episodes=self._fetch_episodes(tvdb_id),
         )
         # with open(cache_file, "wb") as file:
         #     pickle.dump(result, file)
         print(" Done")
         return data["slug"], result
 
-    def print_slugs(self, cache_file=None):
-        """Print slugs"""
-        if cache_file is not None:
-            self.cache_file = cache_file
-        self.load_cache()
-        print("Listing series and files from cache")
-        print("===================================\n\n")
-        maxwidth = 0
-        for slug, _ in self.data.items():
-            if len(slug) > maxwidth:
-                maxwidth = len(slug)
-
-        for slug, result in sorted(self.data.items()):
-            if isinstance(result, Series):
-                print(f"{slug:>{maxwidth}}: Series: {result.name}")
-            else:
-                print(f"{slug:>{maxwidth}}:  Movie: {result.name}")
-
-    def fetch_episodes(self, tvdb_id: int):
+    def _fetch_episodes(self, tvdb_id: int):
         """Fetch episodes from TVDB"""
         data = self.api.get_series_episodes(id=tvdb_id)
         results = []

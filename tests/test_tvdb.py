@@ -75,7 +75,7 @@ def test_load_cache():
     my_tvdb = MyTVDB()
     my_tvdb._connect()
     temp_cache = "/tmp/test_cache.pickle"
-    my_tvdb.load_cache(cache_file=temp_cache)
+    my_tvdb._load_cache(cache_file=temp_cache)
     assert my_tvdb.data != {}
 
 
