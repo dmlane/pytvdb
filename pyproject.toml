@@ -18,6 +18,7 @@ packages = [
 [tool.poetry.scripts]
 # Section managed with vi
 tvdb_refresh_cache = "pytvdb.my_tvdb:refresh_cache"
+tvdb_print_slugs = "pytvdb.my_tvdb:print_slug"
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4"

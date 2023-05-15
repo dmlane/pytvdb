@@ -199,3 +199,9 @@ def refresh_cache():
     """Refresh cache"""
     handler = MyTVDB()
     handler.refresh_cache()
+
+
+def print_slugs():
+    """Print slugs"""
+    handler = MyTVDB()
+    handler.print_slugs()
