@@ -160,6 +160,7 @@ class MyTVDB:
             self.cache_file = cache_file
         self.load_cache()
         print("Listing series and files from cache")
+        print("===================================\n\n")
         maxwidth = 0
         for slug, _ in self.data.items():
             if len(slug) > maxwidth:
