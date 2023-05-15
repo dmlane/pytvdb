@@ -83,7 +83,7 @@ run_task() {
    TASK="$1"
    shift 1
 
-   run_command disablekeyring
+   #run_command disablekeyring
 
    source "$DOTRUN_DIR/tasks/$TASK.sh"
    if [ $? != 0 ]; then
