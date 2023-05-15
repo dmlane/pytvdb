@@ -116,9 +116,9 @@ class MyTVDB:
 
     def _fetch_movie(self, tvdb_id: int):
         """Fetch movie from TVDB"""
-        print(f"Fetching movie {tvdb_id} ", end="")
+        print(f"Fetching movie {tvdb_id} ", end="", flush=True)
         data = self.api.get_movie(tvdb_id)
-        print(f" '{data['slug']}' .......... ", end="")
+        print(f" '{data['slug']}' .......... ", end="", flush=True)
         translations = self.api.get_movie_translation(tvdb_id, lang="eng")
         result = Movie(
             tvdb_id=tvdb_id,
@@ -138,9 +138,9 @@ class MyTVDB:
         #         return pickle.load(handle)
         # except FileNotFoundError:
         #     pass
-        print(f"Fetching series {tvdb_id} ", end="")
+        print(f"Fetching series {tvdb_id} ", end="", flush=True)
         data = self.api.get_series_extended(tvdb_id)
-        print(f" '{data['slug']}' .......... ", end="")
+        print(f" '{data['slug']}' .......... ", end="", flush=True)
         translations = self.api.get_series_translation(tvdb_id, lang="eng")
 
         result = Series(
